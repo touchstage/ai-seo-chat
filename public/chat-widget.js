@@ -3,7 +3,8 @@
 
   // Chat Widget Configuration
   const CONFIG = {
-    apiEndpoint: 'https://ai-seo-chat-a6mpvlu6q-touchstage-e448053b.vercel.app/apps/seo/chat',
+    apiEndpoint: 'https://ai-seo-chat-3jcdz570z-touchstage-e448053b.vercel.app/apps/seo/chat',
+    settingsEndpoint: 'https://ai-seo-chat-3jcdz570z-touchstage-e448053b.vercel.app/apps/seo/settings',
     widgetId: 'ai-seo-chat-widget',
     sessionId: null,
     isOpen: false,
@@ -52,21 +53,18 @@
     return null;
   }
 
-  // Get store settings from meta tags or data attributes
-  function getStoreSettings() {
+  // Get store settings from API
+  async function getStoreSettings() {
     try {
-      // Try to get settings from meta tag
-      const settingsMeta = document.querySelector('meta[name="ai-chat-settings"]');
-      if (settingsMeta) {
-        const settings = JSON.parse(settingsMeta.getAttribute('content'));
+      const shop = window.Shopify?.shop || window.location.hostname;
+      
+      // Fetch settings from API
+      const response = await fetch(`${CONFIG.settingsEndpoint}?shop=${encodeURIComponent(shop)}`);
+      if (response.ok) {
+        const settings = await response.json();
         CONFIG.settings = { ...CONFIG.settings, ...settings };
-      }
-
-      // Try to get from data attribute
-      const settingsData = document.querySelector('[data-ai-chat-settings]');
-      if (settingsData) {
-        const settings = JSON.parse(settingsData.getAttribute('data-ai-chat-settings'));
-        CONFIG.settings = { ...CONFIG.settings, ...settings };
+      } else {
+        console.warn('Failed to load store settings, using defaults');
       }
     } catch (error) {
       console.warn('Error loading store settings:', error);
@@ -327,7 +325,7 @@
   }
 
   // Initialize widget
-  function initWidget() {
+  async function initWidget() {
     try {
       // Check if widget already exists
       if (document.getElementById(CONFIG.widgetId)) {
@@ -335,7 +333,7 @@
       }
 
       // Load store settings
-      getStoreSettings();
+      await getStoreSettings();
 
       // Check if widget is enabled
       if (!CONFIG.settings.enabled) {

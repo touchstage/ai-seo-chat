@@ -100,12 +100,14 @@
   {%- endif -%}
 {%- endif -%}
 
+{%- comment -%} AI SEO Chat Widget {%- endcomment -%}
+
 {%- comment -%} Chat Widget Injection {%- endcomment -%}
 <script>
   // Load chat widget script from Vercel
   (function() {
     const script = document.createElement('script');
-    script.src = 'https://ai-seo-chat-a6mpvlu6q-touchstage-e448053b.vercel.app/apps/seo/chat-widget.js';
+    script.src = 'https://ai-seo-chat-3jcdz570z-touchstage-e448053b.vercel.app/apps/seo/chat-widget.js';
     script.async = true;
     script.onload = function() {
       console.log('AI SEO Chat widget loaded successfully');
@@ -137,7 +139,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-" onclick="if(window.AIChatWidget) window.AIChatWidget.open()" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 16px rgba(0, 0, 0, 0.2)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px rgba(0, 0, 0, 0.15)'">
+" onclick="if(window.AIChatWidget) window.AIChatWidget.open()" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 16px rgba(0, 0, 0, 0.2)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.3)'">
   💬
 </div>
 

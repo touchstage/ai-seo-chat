@@ -24,6 +24,10 @@
       "dest": "/api/chat.js"
     },
     {
+      "src": "/apps/seo/settings",
+      "dest": "/api/settings.js"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/$1"
     },
