@@ -1,0 +1,23 @@
+{%- comment -%} Chat Widget Injection {%- endcomment -%}
+<script>
+  // Load chat widget script
+  (function() {
+    const script = document.createElement('script');
+    script.src = '{{ shop.secure_url }}/apps/seo/chat-widget.js';
+    script.async = true;
+    script.onload = function() {
+      console.log('AI SEO Chat widget loaded');
+    };
+    script.onerror = function() {
+      console.error('Failed to load AI SEO Chat widget');
+    };
+    document.head.appendChild(script);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "AI SEO Chat Widget",
+  "target": "body"
+}
+{% endschema %}

@@ -12,6 +12,10 @@
   ],
   "routes": [
     {
+      "src": "/apps/seo/chat-widget.js",
+      "dest": "/public/chat-widget.js"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/$1"
     },

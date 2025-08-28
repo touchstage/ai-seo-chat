@@ -105,7 +105,7 @@
   // Load chat widget script
   (function() {
     const script = document.createElement('script');
-    script.src = '{{ app.metafields.ai_seo_chat.widget_url | default: "/apps/seo/chat-widget.js" }}';
+    script.src = '{{ shop.secure_url }}/apps/seo/chat-widget.js';
     script.async = true;
     script.onload = function() {
       console.log('AI SEO Chat widget loaded');
@@ -118,47 +118,40 @@
 </script>
 
 {%- comment -%} Optional: Inline Q&A Panel for Product Pages {%- endcomment -%}
-{%- if product and ai_faqs and section.settings.show_qa_panel -%}
+{%- if product and section.settings.show_qa_panel -%}
   <div class="ai-seo-qa-panel" style="margin: 2rem 0; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
     <h3 style="margin: 0 0 1rem 0; color: #333;">Frequently Asked Questions</h3>
     <div class="ai-seo-qa-list">
-      {%- for faq in ai_faqs limit: 5 -%}
-        <details style="margin-bottom: 1rem; border: 1px solid #e1e5e9; border-radius: 4px;">
-          <summary style="padding: 1rem; cursor: pointer; background: white; font-weight: 500;">
-            {{ faq.q }}
-          </summary>
-          <div style="padding: 1rem; background: white; border-top: 1px solid #e1e5e9;">
-            {{ faq.a }}
-          </div>
-        </details>
-      {%- endfor -%}
-    </div>
-    <div style="margin-top: 1rem; text-align: center;">
-      <button 
-        onclick="if(window.AIChatWidget) window.AIChatWidget.open()"
-        style="
-          padding: 0.75rem 1.5rem;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
-          border: none;
-          border-radius: 24px;
-          cursor: pointer;
-          font-size: 14px;
-          font-weight: 500;
-        "
-      >
-        Ask More Questions
-      </button>
+      <div style="text-align: center; padding: 2rem;">
+        <p style="margin: 0; color: #6c757d; font-size: 14px;">
+          AI-powered Q&A will appear here based on product data
+        </p>
+        <button 
+          onclick="if(window.AIChatWidget) window.AIChatWidget.open()"
+          style="
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 24px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+          "
+        >
+          Ask Questions
+        </button>
+      </div>
     </div>
   </div>
 {%- endif -%}
 
 {%- comment -%} Related Products Section {%- endcomment -%}
-{%- if product and ai_features and section.settings.show_related_products -%}
+{%- if product and section.settings.show_related_products -%}
   <div class="ai-seo-related-products" style="margin: 2rem 0;">
     <h3 style="margin: 0 0 1rem 0; color: #333;">You Might Also Like</h3>
     <div class="ai-seo-related-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-      {%- comment -%} This would be populated by the chat widget or a separate API call {%- endcomment -%}
       <div style="text-align: center; padding: 1rem; background: white; border: 1px solid #e1e5e9; border-radius: 8px;">
         <p style="margin: 0; color: #6c757d; font-size: 14px;">
           Related products will be suggested based on your AI SEO data
@@ -186,7 +179,7 @@
 {% schema %}
 {
   "name": "AI SEO Chat",
-  "target": "section",
+  "target": "body",
   "settings": [
     {
       "type": "header",
@@ -220,7 +213,6 @@
       "default": true,
       "info": "Displays AI-suggested related products"
     }
-  ],
-
+  ]
 }
 {% endschema %}
