@@ -1,0 +1,142 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Note that some adapters may set a maximum length for the String type by default, please ensure your strings are long
+// enough when changing adapters.
+// See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Session {
+  id            String    @id
+  shop          String
+  state         String
+  isOnline      Boolean   @default(false)
+  scope         String?
+  expires       DateTime?
+  accessToken   String
+  userId        BigInt?
+  firstName     String?
+  lastName      String?
+  email         String?
+  accountOwner  Boolean   @default(false)
+  locale        String?
+  collaborator  Boolean?  @default(false)
+  emailVerified Boolean?  @default(false)
+}
+
+// AI SEO Models
+model ProductEmbedding {
+  id          String   @id @default(cuid())
+  shop        String
+  productId   String
+  title       String
+  description String?
+  features    String[] // JSON array of features
+  useCases    String[] // JSON array of use cases
+  faqs        Json[]   // Array of {q: string, a: string} objects
+  embedding   Json     // OpenAI embedding vector as JSON array
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([shop, productId])
+  @@index([shop])
+}
+
+model PolicyEmbedding {
+  id        String   @id @default(cuid())
+  shop      String
+  policyId  String
+  title     String
+  content   String
+  type      String   // shipping, returns, warranty, etc.
+  embedding Json     // OpenAI embedding vector as JSON array
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([shop, policyId])
+  @@index([shop])
+}
+
+model ChatTranscript {
+  id        String   @id @default(cuid())
+  shop      String
+  sessionId String
+  messages  Json[]   // Array of {role: string, content: string, timestamp: Date}
+  metadata  Json?    // Store additional context like productId, cart actions, etc.
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([shop, sessionId])
+  @@index([createdAt])
+}
+
+model ChatCache {
+  id        String   @id @default(cuid())
+  shop      String
+  query     String
+  answer    String
+  actions   Json?    // Store any function call results
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@unique([shop, query])
+  @@index([shop])
+  @@index([expiresAt])
+}
+
+model AIMetrics {
+  id        String   @id @default(cuid())
+  shop      String
+  date      DateTime @db.Date
+  metric    String   // feed_hits, jsonld_coverage, alt_text_coverage, etc.
+  value     Float
+  metadata  Json?    // Additional context
+  createdAt DateTime @default(now())
+
+  @@unique([shop, date, metric])
+  @@index([shop, date])
+}
+
+model JobQueue {
+  id        String   @id @default(cuid())
+  shop      String
+  type      String   // backfill, regenerate, etc.
+  status    String   // pending, running, completed, failed
+  data      Json?    // Job-specific data
+  result    Json?    // Job result
+  error     String?
+  startedAt DateTime?
+  completedAt DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([shop, status])
+  @@index([createdAt])
+}
+
+model AppSettings {
+  id                    String   @id @default(cuid())
+  shop                  String   @unique
+  allowAddToCart        Boolean  @default(false)
+  restrictToQA          Boolean  @default(false)
+  tonePreset            String   @default("professional")
+  brandWords            String[] // JSON array
+  blocklist             String[] // JSON array
+  starterPrompts        Json[]   // Array of prompt objects
+  suggestedQuestions    Json[]   // Array of question objects per collection
+  transcriptRetention   Boolean  @default(false)
+  transcriptRetentionDays Int    @default(30)
+  freeMessageLimit      Int      @default(100)
+  proMessageLimit       Int      @default(3000)
+  overageRate           Float    @default(0.02)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@index([shop])
+}
