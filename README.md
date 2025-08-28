@@ -39,7 +39,7 @@ A powerful AI-powered chat widget for Shopify stores that provides intelligent c
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/ai-seo-chat.git
+git clone https://github.com/touchstage/ai-seo-chat.git
 cd ai-seo-chat
 ```
 
