@@ -2,7 +2,7 @@
 
 client_id = "81b2b0c8aa59724c27df49dfe12bf394"
 name = "ai_seo_chat"
-application_url = "https://ai-seo-chat-qlo34y13p-touchstage-e448053b.vercel.app/"
+application_url = "https://ai-seo-chat.myshopify.com"
 embedded = true
 handle = "ai_seo_chat"
 
@@ -13,41 +13,16 @@ include_config_on_deploy = true
 [webhooks]
 api_version = "2025-07"
 
-  [[webhooks.subscriptions]]
-  topics = [ "app/scopes_update" ]
-  uri = "/webhooks/app/scopes_update"
-
-  [[webhooks.subscriptions]]
-  topics = [ "app/uninstalled" ]
-  uri = "/webhooks/app/uninstalled"
-
-  [[webhooks.subscriptions]]
-  topics = [
-  "collections/create",
-  "collections/delete",
-  "collections/update"
-]
-  uri = "/webhooks/collections"
-
-  [[webhooks.subscriptions]]
-  topics = [ "products/create", "products/delete", "products/update" ]
-  uri = "/webhooks/products"
-
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
 scopes = "read_content,read_products,write_content,write_products"
 
 [auth]
 redirect_urls = [
-  "https://ai-seo-chat-qlo34y13p-touchstage-e448053b.vercel.app/auth/callback",
-  "https://ai-seo-chat-qlo34y13p-touchstage-e448053b.vercel.app/auth/shopify/callback",
-  "https://ai-seo-chat-qlo34y13p-touchstage-e448053b.vercel.app/api/auth/callback"
+  "https://ai-seo-chat.myshopify.com/auth/callback",
+  "https://ai-seo-chat.myshopify.com/auth/shopify/callback",
+  "https://ai-seo-chat.myshopify.com/api/auth/callback"
 ]
-
-[app_proxy]
-url = "https://ai-seo-chat-qlo34y13p-touchstage-e448053b.vercel.app/apps/ai-seo-chat"
-subpath = "ai-seo-chat"
-prefix = "apps"
 
 [pos]
 embedded = false
