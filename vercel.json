@@ -2,8 +2,8 @@
   "version": 2,
   "builds": [
     {
-      "src": "pages/**/*.js",
-      "use": "@vercel/node"
+      "src": "public/**/*",
+      "use": "@vercel/static"
     },
     {
       "src": "api/**/*.js",
@@ -17,7 +17,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/pages/$1"
+      "dest": "/public/$1"
     }
   ],
   "env": {
