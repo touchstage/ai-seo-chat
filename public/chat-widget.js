@@ -3,7 +3,7 @@
 
   // Chat Widget Configuration
   const CONFIG = {
-    apiEndpoint: '/apps/seo/chat',
+    apiEndpoint: 'https://ai-seo-chat-rnlkytmrx-touchstage-e448053b.vercel.app/apps/seo/chat',
     widgetId: 'ai-seo-chat-widget',
     sessionId: null,
     isOpen: false,
