@@ -15,7 +15,8 @@
     "test:redis": "node test-redis-only.js",
     "test:supabase": "node test-supabase-only.js",
     "test:upstash": "node test-upstash-redis.js",
-    "vercel-build": "npm run build && npx prisma generate"
+    "vercel-build": "npx prisma generate && npm run build",
+    "build:vercel": "npx prisma generate"
   },
   "type": "module",
   "engines": {
