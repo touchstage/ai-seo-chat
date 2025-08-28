@@ -2,7 +2,7 @@
 
 client_id = "81b2b0c8aa59724c27df49dfe12bf394"
 name = "ai_seo_chat"
-application_url = "https://shopify.com"
+application_url = "https://partners.shopify.com/4469417/apps/276981317633"
 embedded = true
 handle = "ai_seo_chat"
 
@@ -19,9 +19,9 @@ scopes = "read_content,read_products,write_content,write_products"
 
 [auth]
 redirect_urls = [
-  "https://shopify.com/auth/callback",
-  "https://shopify.com/auth/shopify/callback",
-  "https://shopify.com/api/auth/callback"
+  "https://partners.shopify.com/4469417/apps/276981317633/auth/callback",
+  "https://partners.shopify.com/4469417/apps/276981317633/auth/shopify/callback",
+  "https://partners.shopify.com/4469417/apps/276981317633/api/auth/callback"
 ]
 
 [pos]
