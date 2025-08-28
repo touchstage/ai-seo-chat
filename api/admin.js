@@ -1,6 +1,3 @@
-import { json } from '@remix-run/node';
-import { authenticate } from '../app/shopify.server.js';
-
 export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
