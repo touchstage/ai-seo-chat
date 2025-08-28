@@ -104,16 +104,16 @@
 
 {%- comment -%} Chat Widget Injection {%- endcomment -%}
 <script>
-  // Load chat widget script from Vercel
+  // Load chat widget script from Shopify app proxy
   (function() {
     const script = document.createElement('script');
-    script.src = 'https://ai-seo-chat-qlo34y13p-touchstage-e448053b.vercel.app/apps/seo/chat-widget.js';
+    script.src = '{{ shop.secure_url }}/apps/ai-seo-chat/chat-widget.js';
     script.async = true;
     script.onload = function() {
       console.log('AI SEO Chat widget loaded successfully');
     };
     script.onerror = function() {
-      console.error('Failed to load AI SEO Chat widget from Vercel');
+      console.error('Failed to load AI SEO Chat widget from Shopify app proxy');
     };
     document.head.appendChild(script);
   })();
