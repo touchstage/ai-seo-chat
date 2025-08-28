@@ -6,10 +6,6 @@
       "use": "@vercel/static"
     },
     {
-      "src": "app/**/*.js",
-      "use": "@vercel/node"
-    },
-    {
       "src": "api/**/*.js",
       "use": "@vercel/node"
     }
@@ -28,15 +24,16 @@
       "dest": "/api/settings.js"
     },
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "src": "/app",
+      "dest": "/api/admin.js"
+    },
+    {
+      "src": "/app/(.*)",
+      "dest": "/api/admin.js"
     },
     {
       "src": "/(.*)",
       "dest": "/public/index.html"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
