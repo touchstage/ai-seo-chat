@@ -117,64 +117,29 @@
   })();
 </script>
 
-{%- comment -%} Optional: Inline Q&A Panel for Product Pages {%- endcomment -%}
-{%- if product and section.settings.show_qa_panel -%}
-  <div class="ai-seo-qa-panel" style="margin: 2rem 0; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
-    <h3 style="margin: 0 0 1rem 0; color: #333;">Frequently Asked Questions</h3>
-    <div class="ai-seo-qa-list">
-      <div style="text-align: center; padding: 2rem;">
-        <p style="margin: 0; color: #6c757d; font-size: 14px;">
-          AI-powered Q&A will appear here based on product data
-        </p>
-        <button 
-          onclick="if(window.AIChatWidget) window.AIChatWidget.open()"
-          style="
-            margin-top: 1rem;
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 24px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-          "
-        >
-          Ask Questions
-        </button>
-      </div>
-    </div>
-  </div>
-{%- endif -%}
-
-{%- comment -%} Related Products Section {%- endcomment -%}
-{%- if product and section.settings.show_related_products -%}
-  <div class="ai-seo-related-products" style="margin: 2rem 0;">
-    <h3 style="margin: 0 0 1rem 0; color: #333;">You Might Also Like</h3>
-    <div class="ai-seo-related-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-      <div style="text-align: center; padding: 1rem; background: white; border: 1px solid #e1e5e9; border-radius: 8px;">
-        <p style="margin: 0; color: #6c757d; font-size: 14px;">
-          Related products will be suggested based on your AI SEO data
-        </p>
-        <button 
-          onclick="if(window.AIChatWidget) window.AIChatWidget.sendMessage('Show me related products')"
-          style="
-            margin-top: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 16px;
-            cursor: pointer;
-            font-size: 12px;
-          "
-        >
-          Get Suggestions
-        </button>
-      </div>
-    </div>
-  </div>
-{%- endif -%}
+{%- comment -%} Floating Chat Widget Button {%- endcomment -%}
+<div class="ai-seo-chat-button" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+" onclick="if(window.AIChatWidget) window.AIChatWidget.open()" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 16px rgba(0, 0, 0, 0.2)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px rgba(0, 0, 0, 0.15)'">
+  💬
+</div>
 
 {% schema %}
 {
@@ -190,28 +155,6 @@
       "id": "enable_chat_widget",
       "label": "Enable Chat Widget",
       "default": true
-    },
-    {
-      "type": "header",
-      "content": "Q&A Panel Settings"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_qa_panel",
-      "label": "Show Q&A Panel on Product Pages",
-      "default": true,
-      "info": "Displays AI-generated FAQs on product pages"
-    },
-    {
-      "type": "header",
-      "content": "Related Products Settings"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_related_products",
-      "label": "Show Related Products Section",
-      "default": true,
-      "info": "Displays AI-suggested related products"
     }
   ]
 }
