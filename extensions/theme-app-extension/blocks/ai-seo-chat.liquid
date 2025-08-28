@@ -102,16 +102,16 @@
 
 {%- comment -%} Chat Widget Injection {%- endcomment -%}
 <script>
-  // Load chat widget script
+  // Load chat widget script from Vercel
   (function() {
     const script = document.createElement('script');
-    script.src = '{{ shop.secure_url }}/apps/seo/chat-widget.js';
+    script.src = 'https://ai-seo-chat-49z72ojsl-touchstage-e448053b.vercel.app/apps/seo/chat-widget.js';
     script.async = true;
     script.onload = function() {
-      console.log('AI SEO Chat widget loaded');
+      console.log('AI SEO Chat widget loaded successfully');
     };
     script.onerror = function() {
-      console.error('Failed to load AI SEO Chat widget');
+      console.error('Failed to load AI SEO Chat widget from Vercel');
     };
     document.head.appendChild(script);
   })();
