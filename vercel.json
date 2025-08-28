@@ -6,6 +6,10 @@
       "use": "@vercel/static"
     },
     {
+      "src": "app/**/*.js",
+      "use": "@vercel/node"
+    },
+    {
       "src": "api/**/*.js",
       "use": "@vercel/node"
     }
@@ -14,6 +18,10 @@
     {
       "src": "/apps/seo/chat-widget.js",
       "dest": "/public/chat-widget.js"
+    },
+    {
+      "src": "/apps/seo/chat",
+      "dest": "/api/chat.js"
     },
     {
       "src": "/api/(.*)",

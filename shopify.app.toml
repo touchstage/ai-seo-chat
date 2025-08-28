@@ -2,7 +2,7 @@
 
 client_id = "81b2b0c8aa59724c27df49dfe12bf394"
 name = "ai_seo_chat"
-application_url = "https://ai-seo-chat-49z72ojsl-touchstage-e448053b.vercel.app/"
+application_url = "https://ai-seo-chat-rnlkytmrx-touchstage-e448053b.vercel.app/"
 embedded = true
 handle = "ai_seo_chat"
 
@@ -39,13 +39,13 @@ scopes = "read_content,read_products,write_content,write_products"
 
 [auth]
 redirect_urls = [
-  "https://ai-seo-chat-49z72ojsl-touchstage-e448053b.vercel.app/auth/callback",
-  "https://ai-seo-chat-49z72ojsl-touchstage-e448053b.vercel.app/auth/shopify/callback",
-  "https://ai-seo-chat-49z72ojsl-touchstage-e448053b.vercel.app/api/auth/callback"
+  "https://ai-seo-chat-rnlkytmrx-touchstage-e448053b.vercel.app/auth/callback",
+  "https://ai-seo-chat-rnlkytmrx-touchstage-e448053b.vercel.app/auth/shopify/callback",
+  "https://ai-seo-chat-rnlkytmrx-touchstage-e448053b.vercel.app/api/auth/callback"
 ]
 
 [app_proxy]
-url = "https://ai-seo-chat-49z72ojsl-touchstage-e448053b.vercel.app/apps/ai-seo-chat"
+url = "https://ai-seo-chat-rnlkytmrx-touchstage-e448053b.vercel.app/apps/ai-seo-chat"
 subpath = "ai-seo-chat"
 prefix = "apps"
 
