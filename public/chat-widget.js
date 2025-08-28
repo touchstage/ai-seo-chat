@@ -3,12 +3,19 @@
 
   // Chat Widget Configuration
   const CONFIG = {
-    apiEndpoint: 'https://ai-seo-chat-rnlkytmrx-touchstage-e448053b.vercel.app/apps/seo/chat',
+    apiEndpoint: 'https://ai-seo-chat-a6mpvlu6q-touchstage-e448053b.vercel.app/apps/seo/chat',
     widgetId: 'ai-seo-chat-widget',
     sessionId: null,
     isOpen: false,
     isMinimized: false,
     currentProductId: null,
+    settings: {
+      position: 'bottom-right',
+      buttonLabel: 'Chat with AI',
+      buttonColor: '#667eea',
+      welcomeMessage: "Hi! I'm your AI assistant. How can I help you today?",
+      enabled: true
+    }
   };
 
   // Generate session ID safely
@@ -45,15 +52,52 @@
     return null;
   }
 
+  // Get store settings from meta tags or data attributes
+  function getStoreSettings() {
+    try {
+      // Try to get settings from meta tag
+      const settingsMeta = document.querySelector('meta[name="ai-chat-settings"]');
+      if (settingsMeta) {
+        const settings = JSON.parse(settingsMeta.getAttribute('content'));
+        CONFIG.settings = { ...CONFIG.settings, ...settings };
+      }
+
+      // Try to get from data attribute
+      const settingsData = document.querySelector('[data-ai-chat-settings]');
+      if (settingsData) {
+        const settings = JSON.parse(settingsData.getAttribute('data-ai-chat-settings'));
+        CONFIG.settings = { ...CONFIG.settings, ...settings };
+      }
+    } catch (error) {
+      console.warn('Error loading store settings:', error);
+    }
+  }
+
+  // Get position styles based on settings
+  function getPositionStyles() {
+    const position = CONFIG.settings.position || 'bottom-right';
+    
+    switch (position) {
+      case 'bottom-left':
+        return 'bottom: 20px; left: 20px; right: auto;';
+      case 'bottom-center':
+        return 'bottom: 20px; left: 50%; right: auto; transform: translateX(-50%);';
+      case 'bottom-right':
+      default:
+        return 'bottom: 20px; right: 20px; left: auto;';
+    }
+  }
+
   // Create widget HTML
   function createWidgetHTML() {
+    const positionStyles = getPositionStyles();
+    
     return `
       <div id="${CONFIG.widgetId}" class="ai-chat-widget">
         <style>
           .ai-chat-widget {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            ${positionStyles}
             z-index: 10000;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             font-size: 14px;
@@ -69,7 +113,7 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: ${CONFIG.settings.buttonColor || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'};
             border: none;
             color: white;
             cursor: pointer;
@@ -109,7 +153,7 @@
           }
 
           .ai-chat-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: ${CONFIG.settings.buttonColor || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'};
             color: white;
             padding: 1rem;
             display: flex;
@@ -163,7 +207,7 @@
           }
 
           .ai-chat-message.user .ai-chat-message-content {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: ${CONFIG.settings.buttonColor || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'};
             color: white;
             border-bottom-right-radius: 4px;
           }
@@ -193,11 +237,11 @@
           }
 
           .ai-chat-input input:focus {
-            border-color: #667eea;
+            border-color: ${CONFIG.settings.buttonColor || '#667eea'};
           }
 
           .ai-chat-send {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: ${CONFIG.settings.buttonColor || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'};
             color: white;
             border: none;
             border-radius: 50%;
@@ -226,7 +270,7 @@
           .ai-chat-loading-dots span {
             width: 6px;
             height: 6px;
-            background: #667eea;
+            background: ${CONFIG.settings.buttonColor || '#667eea'};
             border-radius: 50%;
             animation: loading 1.4s infinite ease-in-out;
           }
@@ -262,14 +306,14 @@
 
         <div class="ai-chat-container">
           <div class="ai-chat-header">
-            <h3>AI Assistant</h3>
+            <h3>${CONFIG.settings.buttonLabel || 'AI Assistant'}</h3>
             <button class="ai-chat-close" onclick="window.AIChatWidget.close()">×</button>
           </div>
           
           <div class="ai-chat-messages">
             <div class="ai-chat-welcome">
               <h4>👋 Hello!</h4>
-              <p>I'm your AI assistant. Ask me anything about our products, shipping, returns, or any other questions!</p>
+              <p>${CONFIG.settings.welcomeMessage || "I'm your AI assistant. Ask me anything about our products, shipping, returns, or any other questions!"}</p>
             </div>
           </div>
           
@@ -287,6 +331,14 @@
     try {
       // Check if widget already exists
       if (document.getElementById(CONFIG.widgetId)) {
+        return;
+      }
+
+      // Load store settings
+      getStoreSettings();
+
+      // Check if widget is enabled
+      if (!CONFIG.settings.enabled) {
         return;
       }
 
